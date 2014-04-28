@@ -7,6 +7,9 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
+    
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -15,7 +18,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.blogspot.foreapps.hodorsoundboard.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +30,7 @@
             android:name=".SingleListItem"
             android:label="Single Item Selected" >
         </activity>
+        
     </application>
-
+    
 </manifest>
