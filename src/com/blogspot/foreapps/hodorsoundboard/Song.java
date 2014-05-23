@@ -7,11 +7,9 @@ package com.blogspot.foreapps.hodorsoundboard;
  */
 public class Song {
 	
-	private String file_location;
 	private String name;
 	
-	public Song(String name, String file_location){
-		this.file_location = file_location;
+	public Song(String name){
 		this.name = name;
 	}
 	

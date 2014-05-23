@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:34
+-keep class com.blogspot.foreapps.hodorsoundboard.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:45
+-keep class com.google.android.gms.ads.AdActivity { <init>(...); }
+
