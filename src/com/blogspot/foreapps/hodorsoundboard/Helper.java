@@ -16,11 +16,87 @@ import android.widget.Toast;
 
 public class Helper {
 
-	private String LOG = "com.blogspot.foreapps.hodorsoundboard.helper";
+	private static String LOG = "com.blogspot.foreapps.hodorsoundboard.helper";
 	private File k = null; // global var to use content values from copyFile and
 							// saving
 	private String[] files = null;
 	private int selectedSoundIndex = -1;
+
+	/**
+	 * Creates a list of sound file names from the assets to display in the
+	 * ListView
+	 * 
+	 * @return a String array from the asset names
+	 */
+	public static String[] createSoundNameList() {
+
+		AssetManager assetManager = MainActivity.getContext().getResources()
+				.getAssets();
+		String assetNames[] = null;
+
+		// get list of asset names
+		try {
+			assetNames = assetManager.list("");
+		} catch (Exception e) {
+			Log.e(LOG, "Error listing files: " + e.toString());
+		}
+
+		// Extra two variables b/c arrays are different sizes
+		// remove extra data from assetNames
+		String[] temp = removeExtraData(assetNames);
+		// Convert sound names to look nice
+		String[] result = makeSoundNamesNice(temp);
+		
+
+		return result;
+	}
+
+	/**
+	 * Removes the extras included from AssetManager aka 'images', 'sounds'
+	 * 'webkit'
+	 * 
+	 * @param assetNames
+	 *            input string array
+	 * @return result aka assetNames without extras
+	 */
+	private static String[] removeExtraData(String[] assetNames) {
+		String[] result = new String[assetNames.length - 3];
+		int count = 0;
+
+		for (int i = 0; i < assetNames.length; i++) {
+			String temp = assetNames[i];
+			if (!temp.equals("images")) {
+				if (!temp.equals("sounds")) {
+					if (!temp.equals("webkit")) {
+						result[count] = temp; // TODO not setting the last index
+						count++;
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * Converts the names to look better by removing .mp3, uppercase Hodor,
+	 * replace '_' by ' '
+	 * 
+	 * @param names
+	 * @return
+	 */
+	private static String[] makeSoundNamesNice(String[] names) {
+
+		for (int i = 0; i < names.length; i++) {
+			String current = names[i];
+			current = current.replace('_', ' '); // replace '_' with ' '
+			current = current.replaceAll("hodor", "Hodor"); // uppercase Hodor
+			current = current.substring(0, current.length() - 4); // remove .mp3
+			names[i] = current;
+		}
+
+		return names;
+	}
 
 	// Saves the sound to a ringtone
 	public void saveRingtone() {
@@ -53,7 +129,8 @@ public class Helper {
 	// Saves the sound to a Notification
 	public void saveNotification() {
 
-		// if file was successfully copied, then enter it into notification database
+		// if file was successfully copied, then enter it into notification
+		// database
 		if (copyFile()) {
 			ContentValues values = new ContentValues();
 			values.put(MediaStore.MediaColumns.DATA, k.getAbsolutePath());

@@ -36,13 +36,7 @@ public class MainActivity extends Activity {
 	// list of song names with .mp3
 	private ArrayList<Song> songList = new ArrayList<Song>();
 	// list of song names that are shown eg. 'user-friendly'
-	private String[] songNameList = { "Hodor?", "Hodor agreeing",
-			"Hodor is worried", "Hodor!!!", "Hodor!", "Hodor is angry",
-			"Hodor, Hodor, Hodor!", "Hodorrr", "Hodorrrrrrr", "Don't Hodor...",
-			"Hodor", "Hodor..", "Hodor agrees for the first time",
-			"Hodor agrees for the second time",
-			"Hodor agrees for the third time",
-			"Hodor agrees for the fourth time", "Hodor is confused", "Hodor" };
+	private String[] songNameList;
 	// for playing the sounds
 	private static MediaPlayer mediaPlayer = new MediaPlayer();
 	// for other classes to reference the context
@@ -55,19 +49,15 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_layout);
+		MainActivity.context = getApplicationContext();
 
 		runAdMob();
 
 		// Initialize list of song names from assets folder
 		createList();
 
-		// Create temp, which holds the names of songs for now
-		String[] temp = new String[songList.size()];
-		for (int i = 0; i < temp.length; i++) {
-			temp[i] = songList.get(i).getName();
-		}
-
 		// Setup ListView
+		songNameList = Helper.createSoundNameList();
 		ListView listview = (ListView) findViewById(R.id.list);
 		// Binding resources Array to ListAdapter
 		listview.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
@@ -75,9 +65,7 @@ public class MainActivity extends Activity {
 		// set Listener for list clicks to play sounds
 		listview.setOnItemClickListener(listOnClickListener());
 
-		MainActivity.context = getApplicationContext();
-		
-		org.codechimp.apprater.AppRater.app_launched(this); // AppRater
+		org.codechimp.apprater.AppRater.app_launched(this); // Run AppRater once
 
 	} // end of onCreate()
 

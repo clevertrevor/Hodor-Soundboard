@@ -1414,11 +1414,14 @@ com.blogspot.foreapps.hodorsoundboard.Helper -> com.blogspot.foreapps.hodorsound
     java.io.File k -> b
     java.lang.String[] files -> c
     int selectedSoundIndex -> d
-    void saveRingtone() -> a
-    void saveNotification() -> b
-    void saveSdCard() -> c
-    boolean copyFile() -> d
-    int getSoundIndex() -> e
+    java.lang.String[] createSoundNameList() -> a
+    java.lang.String[] removeExtraData(java.lang.String[]) -> a
+    java.lang.String[] makeSoundNamesNice(java.lang.String[]) -> b
+    void saveRingtone() -> b
+    void saveNotification() -> c
+    void saveSdCard() -> d
+    boolean copyFile() -> e
+    int getSoundIndex() -> f
 com.blogspot.foreapps.hodorsoundboard.MainActivity -> com.blogspot.foreapps.hodorsoundboard.MainActivity:
     com.google.android.gms.ads.AdView adView -> c
     java.util.ArrayList songList -> d
